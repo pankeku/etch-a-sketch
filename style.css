@@ -1,0 +1,10 @@
+.container {
+  height: 500px;
+  width: 500px;
+  display: grid;
+  border: 5px solid black;
+}
+
+.dot {
+  text-align: center;
+}
