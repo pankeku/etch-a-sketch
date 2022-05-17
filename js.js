@@ -28,7 +28,7 @@ function rainbowColor() {
 //populates divs in the container div, adds listeners and color
 
 function populateDots() {
-    
+
   removeDots();
 
   container.style.gridTemplateColumns = `repeat(${number}, 1fr)`;
@@ -37,13 +37,45 @@ function populateDots() {
   for (let i = 0; i < number * number; i++) {
     const dot = document.createElement(`div`);
     dot.className = "dot";
+    
+    let counter = 0;
 
     dot.addEventListener("mouseover", (e) => {
-      dot.style.backgroundColor = `rgb(${rainbowColor()})`;
+
+      if (dot.style.backgroundColor == "") {
+        dot.style.backgroundColor = `rgb(${rainbowColor()})`;
+      } else {
+          console.log("Already colored");
+        const rgbArray = dot.style.backgroundColor.replace(/[^\d,]/g, '').split(",");
+        dot.style.backgroundColor = darkenTenPercent(rgbArray);
+        console.log(dot.style.backgroundColor);
+
+      }  
+
+      
     });
 
     container.appendChild(dot);
   }
+}
+
+function darkenTenPercent(RGB) {
+
+    let R = RGB[0];
+    let G = RGB[1];
+    let B = RGB[2];
+
+    R = Math.round(R - R * (10 / 100));
+    console.log(R);
+    G = Math.round(G - G * (10 / 100));
+    console.log(G);
+    B = Math.round(B - B * (10 / 100));
+    console.log(B);
+
+    let rgbToString = `rgb(${R.toString()}, ${G.toString()}, ${B.toString()})`;
+    console.log(rgbToString);
+
+    return rgbToString;
 }
 
 function removeDots() {
@@ -56,5 +88,9 @@ function updateGridSize(value) {
   let gridSize = document.querySelector(`#grid-size`);
   gridSize.textContent = value;
   number = value;
+
   populateDots();
+  
 }
+
+
