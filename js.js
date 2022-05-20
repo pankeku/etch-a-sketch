@@ -6,19 +6,21 @@ const colorSelector = document.querySelector(`#color-selector`);
 const buttons = document.querySelectorAll(`.buttons`);
 
 let rainbowNumber = 0;
-let number = 2;
+let number = 10;
 let selectedColor = "#0084FF";
+
+rainbowButton.style.boxShadow = "inset 2px 1px 1px 1px black";
 
 buttons.forEach((button) =>
 button.addEventListener("click", () => {
   if (button.value == "ON") {
-    button.style.backgroundColor = "";
     button.style.boxShadow = "inset 2px 1px 1px 1px black";
   } else {  
     button.style.boxShadow = "";  
   } }));
 
 populateDots();
+updateGridSize(number);
 
 function getRainbowColor() {
   const rainbow = [
@@ -62,7 +64,7 @@ function populateDots() {
           dot.style.backgroundColor = `${getRainbowColor()}`;
         }
       } else if (
-        replaceButton.value == "OFF" &&
+        replaceButton.value == "ON" &&
         dot.style.backgroundColor != ""
       ) {
         if (rainbowButton.value == "OFF") {

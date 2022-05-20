@@ -33,7 +33,7 @@
 
       <div id ="grid-container">
         <span id="range-title">GRID</span>
-        <input type="range" min="1" max="40" value="0" id="range-slider"
+        <input type="range" min="1" max="40" value="10" id="range-slider"
         oninput="updateGridSize(this.value)"">
         <span id="grid-size"></span>
       </div>
@@ -41,10 +41,10 @@
         <button
           id="rainbow-button"
           class="buttons"
-          value="OFF"
+          value="ON"
           onclick="toggleRainbow()"
         >
-          Rainbow
+          <span id="rainbow-text">Rainbow</span>
         </button>
 
         <button
@@ -62,7 +62,7 @@
           value="Reset"
           onclick="resetDots()"
         >
-          RESET
+          CLEAR
         </button>
       </div>
 
