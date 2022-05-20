@@ -18,9 +18,6 @@ button.addEventListener("click", () => {
     button.style.boxShadow = "";  
   } }));
 
-
-
-
 populateDots();
 
 function getRainbowColor() {
