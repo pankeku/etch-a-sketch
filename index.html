@@ -1,18 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" media="screen" href="style.css"/>
-    <title>Etch-a-sketch</title>
-</head>
-<body>
-    <input type="range" min="1" max="100" value="0" id="range-slider" oninput="updateGridSize(this.value)"">
-    <span id="grid-size"></span>
-    <div class="container"></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
 
-    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Koulen&family=Lato&family=Roboto:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <title>Etch-a-sketch</title>
+  </head>
+  <body>
+    <h1>ETCH-A-SKETCH</h1>
+
+    <div id="box">
+      <div id="side-box">
+
+        <div id ="color-container">
+        <span id="range-title">Color</span>
+        <input
+          type="color"
+          id="color-selector"
+          name="color-selector"
+          value="#FFFFFF"
+          oninput="setColor(this.value)"
+        />
+      </div>
+
+      <div id ="grid-container">
+        <span id="range-title">GRID</span>
+        <input type="range" min="1" max="40" value="0" id="range-slider"
+        oninput="updateGridSize(this.value)"">
+        <span id="grid-size"></span>
+      </div>
+
+        <button
+          id="rainbow-button"
+          class="buttons"
+          value="OFF"
+          onclick="toggleRainbow()"
+        >
+          Rainbow
+        </button>
+
+        <button
+          id="replace-button"
+          class="buttons"
+          value="OFF"
+          onclick="toggleReplace()"
+        >
+          REPLACE
+        </button>
+
+        <button
+          id="reset-button"
+          class="buttons"
+          value="Reset"
+          onclick="resetDots()"
+        >
+          RESET
+        </button>
+      </div>
+
+      <div id="container"></div>
+    </div>
+
     <script src="/js.js"></script>
-</body>
+  </body>
 </html>

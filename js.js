@@ -1,19 +1,37 @@
-const container = document.querySelector(`.container`);
+const container = document.querySelector(`#container`);
 const slider = document.querySelector(`#range-slider`);
+const rainbowButton = document.querySelector(`#rainbow-button`);
+const replaceButton = document.querySelector(`#replace-button`);
+const colorSelector = document.querySelector(`#color-selector`);
+const buttons = document.querySelectorAll(`.buttons`);
+
 let rainbowNumber = 0;
 let number = 2;
+let selectedColor = "#0084FF";
+
+buttons.forEach((button) =>
+button.addEventListener("click", () => {
+  if (button.value == "ON") {
+    button.style.backgroundColor = "";
+    button.style.boxShadow = "inset 2px 1px 1px 1px black";
+  } else {  
+    button.style.boxShadow = "";  
+  } }));
+
+
+
 
 populateDots();
 
-function rainbowColor() {
+function getRainbowColor() {
   const rainbow = [
-    `148, 0, 211`,
-    `75, 0, 130`,
-    `0, 0, 255`,
-    `0, 255, 0`,
-    `255, 255, 0`,
-    `255, 127, 0`,
-    `255, 0 , 0`,
+    `#9c27b0`,
+    `#2196f3`,
+    `#009688`,
+    `#ffeb3b`,
+    `#ff5722`,
+    `#795548`,
+    `#00c853`,
   ];
 
   rainbowNumber++;
@@ -28,54 +46,70 @@ function rainbowColor() {
 //populates divs in the container div, adds listeners and color
 
 function populateDots() {
-
-  removeDots();
+  colorSelector.value = selectedColor;
 
   container.style.gridTemplateColumns = `repeat(${number}, 1fr)`;
   container.style.gridTemplateRows = `repeat(${number}, 1fr)`;
 
+  removeDots();
+
   for (let i = 0; i < number * number; i++) {
     const dot = document.createElement(`div`);
     dot.className = "dot";
-    
-    let counter = 0;
 
     dot.addEventListener("mouseover", (e) => {
-
       if (dot.style.backgroundColor == "") {
-        dot.style.backgroundColor = `rgb(${rainbowColor()})`;
-      } else {
-          console.log("Already colored");
-        const rgbArray = dot.style.backgroundColor.replace(/[^\d,]/g, '').split(",");
-        dot.style.backgroundColor = darkenTenPercent(rgbArray);
-        console.log(dot.style.backgroundColor);
-
-      }  
-
-      
+        if (rainbowButton.value == "OFF") {
+          dot.style.backgroundColor = selectedColor;
+        } else {
+          dot.style.backgroundColor = `${getRainbowColor()}`;
+        }
+      } else if (
+        replaceButton.value == "OFF" &&
+        dot.style.backgroundColor != ""
+      ) {
+        if (rainbowButton.value == "OFF") {
+          dot.style.backgroundColor = selectedColor;
+        } else {
+          dot.style.backgroundColor = `${getRainbowColor()}`;
+        }
+      }
     });
 
     container.appendChild(dot);
   }
 }
 
-function darkenTenPercent(RGB) {
+//DARKENING BY 10 percent
+/* let brightnessValue = parseFloat(
+          dot.style.filter.replace(/[^0-9.]/g, "", "")
+        );
 
-    let R = RGB[0];
-    let G = RGB[1];
-    let B = RGB[2];
+        dot.style.filter = `brightness(${value - 0.1})`; */
 
-    R = Math.round(R - R * (10 / 100));
-    console.log(R);
-    G = Math.round(G - G * (10 / 100));
-    console.log(G);
-    B = Math.round(B - B * (10 / 100));
-    console.log(B);
+function toggleRainbow() {
+  if (rainbowButton.value == "OFF") {
+    rainbowButton.value = "ON";
+  } else {
+    rainbowButton.value = "OFF";
+  }
+}
 
-    let rgbToString = `rgb(${R.toString()}, ${G.toString()}, ${B.toString()})`;
-    console.log(rgbToString);
+function toggleReplace() {
+  if (replaceButton.value == "OFF") {
+    replaceButton.value = "ON";
+  } else {
+    replaceButton.value = "OFF";
+  }
+}
 
-    return rgbToString;
+function setColor(newColor) {
+  if (rainbowButton.value == "ON") {
+    rainbowButton.value = "OFF";
+    selectedColor = newColor;
+  } else {
+    selectedColor = newColor;
+  }
 }
 
 function removeDots() {
@@ -90,7 +124,8 @@ function updateGridSize(value) {
   number = value;
 
   populateDots();
-  
 }
 
-
+function resetDots() {
+  populateDots();
+}
